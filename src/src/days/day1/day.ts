@@ -18,7 +18,7 @@ const part1 = (input: string) => {
   console.log(rightOrderedBySmallest);
 
   const distanceBetweenLeftAndRight = leftOrderedBySmallest.map((i, index) => {
-    return rightOrderedBySmallest[index] - i;
+    return Math.abs(rightOrderedBySmallest[index] - i);
   });
   console.log(distanceBetweenLeftAndRight);
 

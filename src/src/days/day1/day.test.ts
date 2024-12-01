@@ -16,7 +16,7 @@ describe("Day1", () => {
       expect(part1(input)).toBe(expected);
     });
     it("should return the correct answer for part 1", () => {
-      expect(part1(input)).toBe(53194);
+      expect(part1(input)).toBe(2031679);
     });
   });
 

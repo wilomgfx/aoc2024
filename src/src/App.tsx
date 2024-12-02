@@ -1,6 +1,7 @@
 import AocLogo from "./assets/aoc-logo.png";
 import "./App.css";
 import Day1 from "./days/day1/Day1";
+import Day2 from "./days/day2/Day2";
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
       <div className="card-grid">
         <div className="card">
           <Day1 />
+        </div>
+        <div className="card">
+          <Day2 />
         </div>
       </div>
     </>

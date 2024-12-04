@@ -3,6 +3,7 @@ import "./App.css";
 import Day1 from "./days/day1/Day1";
 import Day2 from "./days/day2/Day2";
 import Day3 from "./days/day3/Day3";
+import Day4 from "./days/day4/Day4";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
         <div className="card">
           {/* <Day3 /> */}
           File parsing required
+        </div>
+        <div className="card">
+          <Day4 />
         </div>
       </div>
     </>

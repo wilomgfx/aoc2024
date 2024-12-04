@@ -26,19 +26,23 @@ describe("Day4", () => {
 
   describe("Part2", () => {
     it("should return the correct answer for the example provided", () => {
-      const input = `two1nine
-      eightwothree
-      abcone2threexyz
-      xtwone3four
-      4nineeightseven2
-      zoneight234
-      7pqrstsixteen
+      const input = `
+      MMMSXXMASM
+      MSAMXMSMSA
+      AMXSXMAAMM
+      MSAMASMSMX
+      XMASAMXAMM
+      XXAMMXXAMA
+      SMSMSASXSS
+      SAXAMASAAA
+      MAMMMXMMMM
+      MXMXAXMASX
       `;
-      const expected = 281;
+      const expected = 9;
       expect(part2(input)).toBe(expected);
     });
     it("should return the correct answer for part 2", () => {
-      expect(part2(input)).toBe(54249);
+      expect(part2(input)).toBe(1998);
     });
   });
 });

@@ -44,12 +44,34 @@ const part1 = (input: string) => {
 };
 
 const part2 = (input: string) => {
-  const inputs = input
-    .split("\n")
-    .map((i) => i.trim())
-    .filter((i) => i !== "");
+  const grid = input.split("\n").map((line) => line);
 
-  const answer = "N/A";
+  let count = 0;
+
+  const searchForPattern = (row: number, col: number) => {
+    const topLeft = grid[row - 1]?.[col - 1];
+    const topRight = grid[row - 1]?.[col + 1];
+    const bottomLeft = grid[row + 1]?.[col - 1];
+    const bottomRight = grid[row + 1]?.[col + 1];
+
+    return (
+      ((topLeft === "M" && bottomRight === "S") ||
+        (topLeft === "S" && bottomRight === "M")) &&
+      ((bottomLeft === "M" && topRight === "S") ||
+        (bottomLeft === "S" && topRight === "M"))
+    );
+  };
+
+  for (let row = 0; row < grid.length; row++) {
+    for (let col = 0; col < grid[row].length; col++) {
+      // If the cell contains 'A', check the pattern around it
+      if (grid[row][col] === "A") {
+        if (searchForPattern(row, col)) count++;
+      }
+    }
+  }
+
+  const answer = count;
   return answer;
 };
 

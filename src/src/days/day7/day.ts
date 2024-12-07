@@ -75,7 +75,6 @@ const part2 = (input: string) => {
     return acc + parseInt(curr);
   }, 0);
   return answer;
-  return answer;
 };
 
 export { part1, part2 };

@@ -3,7 +3,7 @@ import { part1, part2 } from "./day";
 import input from "./input";
 describe("Day6", () => {
   describe("Part1", () => {
-    it.only("should return the correct answer for the example provided", () => {
+    it("should return the correct answer for the example provided", () => {
       const input = `
       ....#.....
       .........#
@@ -20,7 +20,7 @@ describe("Day6", () => {
       expect(part1(input)).toBe(expected);
     });
     it("should return the correct answer for part 1", () => {
-      expect(part1(input)).toBe(53194);
+      expect(part1(input)).toBe(5312);
     });
   });
 

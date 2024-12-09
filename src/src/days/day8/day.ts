@@ -9,7 +9,7 @@ const inRange = (value: number, start: number, end: number): boolean => {
   return start <= value && value < end;
 };
 
-const getMap = (grid: string[]): Record<string, Coords[]> => {
+const getMap = (grid: string[][]): Record<string, Coords[]> => {
   const map: Record<string, Coords[]> = {};
 
   const addToMap = (cell: string, x: number, y: number) => {
@@ -27,7 +27,7 @@ const getMap = (grid: string[]): Record<string, Coords[]> => {
   return map;
 };
 
-const getAntinodes = (coords: Coords[], grid: string[]): Coords[] => {
+const getAntinodes = (coords: Coords[], grid: string[][]): Coords[] => {
   const antinodes: Coords[] = [];
 
   for (let i = 0; i < coords.length; i++) {
@@ -61,8 +61,8 @@ const part1 = (input: string) => {
   const inputs = input
     .split("\n")
     .map((i) => i.trim())
-    .filter((i) => i !== "");
-
+    .filter(Boolean)
+    .map((line) => line.split(""));
   const map = getMap(inputs);
   const allAntinodes = [];
 
@@ -77,13 +77,69 @@ const part1 = (input: string) => {
   return answer;
 };
 
-const part2 = (input: string) => {
+const calculateLineEquation =
+  (x1: number, y1: number, x2: number, y2: number) => (x: number, y: number) =>
+    (y1 - y2) * x + (x2 - x1) * y + (x1 * y2 - x2 * y1);
+
+const processAntinodeLines = (
+  coords: Coords[],
+  grid: string[][],
+  antinodeGrid: boolean[][]
+): boolean[][] => {
+  const newAntinodeMap = antinodeGrid.map((row) => [...row]);
+
+  // Iterate through each pair of coordinates
+  for (let i = 0; i < coords.length; i++) {
+    for (let j = 0; j < coords.length; j++) {
+      if (i === j) continue;
+
+      const { x: x1, y: y1 } = coords[i];
+      const { x: x2, y: y2 } = coords[j];
+
+      const lineEquation = calculateLineEquation(x1, y1, x2, y2);
+
+      // Check each cell in the grid to see if it lies on the line
+      for (let x = 0; x < grid.length; x++) {
+        for (let y = 0; y < grid[0].length; y++) {
+          if (newAntinodeMap[x][y]) continue;
+
+          const lineResult = lineEquation(x, y);
+          if (lineResult === 0) {
+            newAntinodeMap[x][y] = true;
+          }
+        }
+      }
+    }
+  }
+
+  return newAntinodeMap;
+};
+
+const part2 = (input: string): number => {
   const inputs = input
     .split("\n")
-    .map((i) => i.trim())
-    .filter((i) => i !== "");
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => line.split(""));
 
-  const answer = "N/A";
+  const antinodeMap = inputs.map((line) => line.map(() => false));
+  const antennaMap = getMap(inputs);
+
+  let updatedAntinodeMap = antinodeMap;
+
+  for (const coords of Object.values(antennaMap)) {
+    updatedAntinodeMap = processAntinodeLines(
+      coords,
+      inputs,
+      updatedAntinodeMap
+    );
+  }
+
+  const uniqueAntinodes = updatedAntinodeMap.reduce(
+    (acc, row) => acc + row.filter(Boolean).length,
+    0
+  );
+  const answer = uniqueAntinodes;
   return answer;
 };
 
